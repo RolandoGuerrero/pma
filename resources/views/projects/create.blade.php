@@ -1,47 +1,55 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>Create a Project</h1>
+    <div class="flex items-center content-center mt-20">
+        <div class="md:w-1/3 mx-auto">
+            <div class="card">
+                <h1 class="font-normal text-xl text-center py-3">Create a Project</h1>
 
-    <form method="POST" action="/projects">
-        @csrf
+                <form method="POST" action="/projects">
+                    @csrf
 
-        <div class="form-group row">
-            <label for="title" class="col-md-4 col-form-label text-md-right">{{ __('Title') }}</label>
+                    <div class="md:flex md:items-center mb-6">
+                        <div class="md:w-1/3">
+                            <label class="label" for="title">
+                                Title
+                            </label>
+                        </div>
+                        <div class="md:w-2/3">
+                            <input class="input @error('title') border-red-500 @enderror" id="title" type="text" name="title">
 
-            <div class="col-md-6">
-                <input id="title" type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title') }}" required autocomplete="title" autofocus>
+                            @error('title')
+                                <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    </div>
 
-                @error('title')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
+                    <div class="md:flex md:items-center mb-6">
+                        <div class="md:w-1/3">
+                            <label class="label" for="description">
+                                Description
+                            </label>
+                        </div>
+                        <div class="md:w-2/3">
+                            <textarea class="input @error('description') border-red-500 @enderror" id="description" type="text" name="description">
+                            </textarea>
+
+                            @error('description')
+                                <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-between">
+                        <button class="button" type="submit">
+                            Create
+                        </button>
+                        <a class="inline-block align-baseline font-bold text-sm text-gray-500 hover:text-gray-600" href="/projects">
+                            Cancel
+                        </a>
+                    </div>
+                </form>
             </div>
-        </div>
-
-        <div class="form-group row">
-            <label for="description" class="col-md-4 col-form-label text-md-right">{{ __('Description') }}</label>
-
-            <div class="col-md-6">
-                <textarea id="description"  class="form-control @error('description') is-invalid @enderror" name="description"  required autocomplete="description">
-                    {{ old('description') }}
-                </textarea>
-                @error('description')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
-            </div>
-        </div>
-
-        <div class="form-group row mb-0">
-            <div class="col-md-6 offset-md-4">
-                <button type="submit" class="btn btn-primary">
-                    {{ __('Create') }}
-                </button>
-                <a href="/projects">Cancel</a>
-            </div>
-        </div>
-    </form>    
+        </div>    
+    </div>
 @endsection
