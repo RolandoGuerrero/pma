@@ -10,6 +10,10 @@ abstract class TestCase extends BaseTestCase
 
     public function authenticate($user = null)
     {
-        $this->actingAs($user ?: factory('App\Models\User')->create());
+        $user = $user ?: factory('App\Models\User')->create();
+        
+        $this->actingAs($user);
+    
+        return $user;
     }
 }

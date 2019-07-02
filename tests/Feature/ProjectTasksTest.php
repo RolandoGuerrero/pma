@@ -6,6 +6,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\Project;
+use Facades\Tests\Setup\ProjectFactory;
 
 class ProjectTasksTest extends TestCase
 {
@@ -24,12 +25,7 @@ class ProjectTasksTest extends TestCase
     /** @test */
     public function a_project_can_have_tasks()
     {
-        $this->authenticate();
-
-        $project = factory(Project::class)
-            ->create([
-                'owner_id' => auth()->id()
-            ]);
+        $project = ProjectFactory::ownedBy($this->authenticate())->create();    
         
         $this->post($project->path() . '/tasks', [
             'body' => 'Test Task'
@@ -42,16 +38,11 @@ class ProjectTasksTest extends TestCase
     /** @test */
     public function a_task_can_be_updated()
     {
-        $this->authenticate();
-
-        $project = factory(Project::class)
-            ->create([
-                'owner_id' => auth()->id()
-            ]);
-        
-        $task = $project->addTask('Test task');
-
-        $this->patch($task->path(),[
+        $project = ProjectFactory::ownedBy($this->authenticate())
+            ->withTasks(1)
+            ->create();    
+       
+        $this->patch($project->tasks[0]->path(),[
             'body' => 'Changed',
             'completed' => true
         ]);
@@ -82,11 +73,9 @@ class ProjectTasksTest extends TestCase
     {
         $this->authenticate();
 
-        $project = factory(Project::class)->create();
+        $project = ProjectFactory::withTasks(1)->create(); 
 
-        $task = $project->addTask('Test task');
-
-        $this->patch($task->path() , [
+        $this->patch($project->tasks[0]->path() , [
                 'body' => 'Updated'
             ])->assertStatus(403);
 
@@ -97,12 +86,7 @@ class ProjectTasksTest extends TestCase
     /** @test */
     public function a_task_requires_a_body()
     {
-        $this->authenticate();  
-
-        $project = factory(Project::class)
-            ->create([
-                'owner_id' => auth()->id()
-            ]);      
+        $project = ProjectFactory::ownedBy($this->authenticate())->create();     
 
         $attributes = factory("App\Models\Task")->raw(['body' => '']);
 
