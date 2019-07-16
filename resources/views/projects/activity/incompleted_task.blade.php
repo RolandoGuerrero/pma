@@ -1,0 +1,1 @@
+{{ $activity->user->id === auth()->id ? 'You' :  $activity->user->name }}  incompleted "{{ $activity->subject->body}}" task.

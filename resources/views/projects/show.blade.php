@@ -35,7 +35,7 @@
                     <div class="card mb-3">
                         <form action="{{ $project->path() . '/tasks'}}" method="POST">
                             @csrf
-                            <input type="text" name="body" class="w-full" placeholder="Add task...">
+                            <input type="text" name="body" class="w-full" placeholder="Add task..." autocomplete="off">
                         </form>
                     </div>  
                 </div>
@@ -63,6 +63,8 @@
             
             <div class="lg:w-1/4 px-3 ss">
                 @include('projects.partials._card')
+            
+                @include('projects.partials._activity')
             </div>
         </div>
     </main>
