@@ -1,1 +1,1 @@
-{{ $activity->user->id === auth()->id ? 'You' :  $activity->user->name }} created the project.
+{{ $activity->user->id === auth()->user()->id ? 'You' :  $activity->user->name }} created the project.

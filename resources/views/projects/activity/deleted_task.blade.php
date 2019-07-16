@@ -1,1 +1,1 @@
-{{ $activity->user->id === auth()->id ? 'You' :  $activity->user->name }}  deleted "{{ $activity->subject->body}}" task.
+{{ $activity->user->id === auth()->user()->id ? 'You' :  $activity->user->name }}  deleted "{{ $activity->subject->body}}" task.

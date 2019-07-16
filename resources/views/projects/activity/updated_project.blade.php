@@ -1,5 +1,5 @@
 @if (count($activity->changes['after']) === 1)
-    {{ $activity->user->id === auth()->id ? 'You' :  $activity->user->name }}  updated the {{ key($activity->changes['after']) }} of project.
+    {{ $activity->user->id === auth()->user()->id ? 'You' :  $activity->user->name }}  updated the {{ key($activity->changes['after']) }} of project.
 @else
-    {{ $activity->user->id === auth()->id ? 'You' :  $activity->user->name }}  updated the project.
+    {{ $activity->user->id === auth()->user()->id ? 'You' :  $activity->user->name }}  updated the project.
 @endif
