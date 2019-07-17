@@ -42,7 +42,7 @@ trait RecordsActivity{
             return static::$recordable_events;
         }
             
-        return ['created', 'updated', 'deleted'];
+        return ['created', 'updated'];
     }
 
     /**

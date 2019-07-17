@@ -92,6 +92,32 @@ class ManageProjectsTest extends TestCase
             ->assertSee($project->description);
     }
 
+    /**@test */
+    public function guests_cannot_delete_a_project()
+    {
+        $project = ProjectFactory::create();
+
+        $this->delete($project->path())
+        ->assertRedirect('/login');
+
+        $this->authenticate();
+
+        $this->delete($project->path())
+        ->assertStatus(403);
+    }
+    
+    /**@test */
+    public function a_user_can_delete_a_project()
+    {
+        $project = ProjectFactory::ownedBy($this->authenticate())->create();
+
+        $this->delete($project->path())
+        ->assertRedirect('/projects');
+
+        $this->assertDatabaseMissing('projects', $project->only('id'));
+    }
+
+
     /** @test */
     public function a_user_cannot_view_the_projects_of_others()
     {
