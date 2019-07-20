@@ -30,9 +30,19 @@ class Project extends Model
     {
         return $this->hasMany(Activity::class)->latest();
     }
+    
+    public function members()
+    {
+        return $this->belongsToMany(User::class, 'project_members')->withTimestamps();
+    }
 
     public function addTask($body)
     {
         return $this->tasks()->create(compact('body'));
+    }
+
+    public function invite(User $user)
+    {
+        return $this->members()->attach($user);
     }
 }
