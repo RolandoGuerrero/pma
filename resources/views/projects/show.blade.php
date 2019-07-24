@@ -73,6 +73,8 @@
 
                         <button type="submit" class="button">Update</button>
                     </form>
+
+                    @include('errors')
                 </div>
                 
             </div>
@@ -81,6 +83,10 @@
                 @include('projects.partials._card')
             
                 @include('projects.partials._activity')
+
+                @can('manage', $project)
+                    @include('projects.partials._invite')                
+                @endcan
             </div>
         </div>
     </main>

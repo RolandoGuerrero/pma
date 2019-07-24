@@ -34,20 +34,10 @@ class ManageProjectsTest extends TestCase
         $this->authenticate();
 
         $this->get('/project/create')->assertStatus(200);
-          
-        $attributes = [
-            'title' => $this->faker->sentence,
-            'description' => $this->faker->sentence,
-            'notes' => 'General notes here.'
-        ]; 
 
-        $response = $this->post('/projects', $attributes);
+        $attributes = factory(Project::class)->raw();
 
-        $project = Project::where($attributes)->first();
-
-        $response->assertRedirect($project->path());
-
-        $this->get($project->path())
+        $this->followingRedirects()->post('/projects', $attributes)
             ->assertSee($attributes['title'])
             ->assertSee($attributes['description'])
             ->assertSee($attributes['notes']);
@@ -101,7 +91,7 @@ class ManageProjectsTest extends TestCase
        ->assertSee($project->title);
     }
 
-    /**@test */
+    /** @test */
     public function guests_cannot_delete_a_project()
     {
         $project = ProjectFactory::create();
@@ -109,13 +99,18 @@ class ManageProjectsTest extends TestCase
         $this->delete($project->path())
         ->assertRedirect('/login');
 
-        $this->authenticate();
+        $user = $this->authenticate();
+
+        $this->delete($project->path())
+        ->assertStatus(403);
+
+        $project->invite($user);
 
         $this->delete($project->path())
         ->assertStatus(403);
     }
     
-    /**@test */
+    /** @test */
     public function a_user_can_delete_a_project()
     {
         $project = ProjectFactory::ownedBy($this->authenticate())->create();
