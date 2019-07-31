@@ -9,7 +9,7 @@
         <footer>
             <form action="{{ $project->path() }}" method="POST" class="text-right">
                 @method("DELETE")
-                <button type="submit" class="text-xs">Delete</button>
+                <button type="submit" class="text-xs ">Delete</button>
             </form>
         </footer>
     @endcan

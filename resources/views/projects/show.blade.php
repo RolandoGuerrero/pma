@@ -41,7 +41,7 @@
                                 @csrf
 
                                 <div class="flex items-center">
-                                    <input name="body" value="{{ $task->body }}" class="w-full {{ $task->completed ? 'text-gray-500 line-through' : '' }}">
+                                    <input name="body" value="{{ $task->body }}" class="bg-card w-full {{ $task->completed ? 'text-gray-500 line-through' : '' }}">
                                     <input type="checkbox" name="completed" onchange="this.form.submit()" {{ $task->completed ? 'checked' : ''}}>
                                 </div>
                             </form>
@@ -51,7 +51,7 @@
                     <div class="card mb-3">
                         <form action="{{ $project->path() . '/tasks'}}" method="POST">
                             @csrf
-                            <input type="text" name="body" class="w-full" placeholder="Add task..." autocomplete="off">
+                            <input type="text" name="body" class="bg-card w-full" placeholder="Add task..." autocomplete="off">
                         </form>
                     </div>  
                 </div>

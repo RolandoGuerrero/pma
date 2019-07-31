@@ -12,28 +12,19 @@
 
 @tailwind utilities;
 
-.button{
-  @apply bg-purple-600 text-white py-2 px-5 rounded-lg shadow text-sm;
+@import 'themes/light';
+@import 'themes/dark';
+
+@import 'components/button';
+@import 'components/input';
+@import 'components/card';
+@import 'components/label';
+
+
+body{
+  @apply text-default;
 }
 
-.card{
-  @apply bg-white p-5 rounded-lg shadow;
-}
-
-.input{
-  @apply bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 leading-tight;
-}
-
-.input:focus{
-  @apply outline-none bg-white border-purple-500;
-}
-
-.label{
-  @apply block text-gray-500 font-bold mb-1 pr-4;
-}
-
-@screen md {
-  .label {
-    @apply text-right mb-0;
-  }
+.border-accent{
+  border-color: #805ad5;
 }

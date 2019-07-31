@@ -1,0 +1,8 @@
+.input{
+  @apply bg-input appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 leading-tight;
+}
+
+.input:focus{
+  background-color:#fff;
+  @apply outline-none  border-purple-500;
+}

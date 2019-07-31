@@ -28,7 +28,12 @@
                             </label>
                         </div>
                         <div class="md:w-2/3">
-                            <input class="input" id="password" type="password" placeholder="******************" name="password">
+                            <input class="input" 
+                            id="password" 
+                            type="password" 
+                            placeholder="******************" 
+                            name="password"
+                            style="color:black">
                             
                         </div>
                     </div>

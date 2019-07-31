@@ -28,7 +28,11 @@
                         </label>
                     </div>
                     <div class="md:w-2/3">
-                        <input class="input @error('email') border-red-500 @enderror" id="email" type="email" name="email">
+                        <input class="input @error('email') border-red-500 @enderror" 
+                        id="email" 
+                        type="email" 
+                        name="email"
+                        style="color:black">
 
                         @error('email')
                             <p class="text-red-500 text-xs italic">{{ $message }}</p>

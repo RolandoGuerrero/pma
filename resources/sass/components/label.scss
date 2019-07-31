@@ -1,0 +1,9 @@
+.label{
+  @apply block text-gray-500 font-bold mb-1 pr-4;
+}
+
+@screen md {
+  .label {
+    @apply text-right mb-0;
+  }
+}
