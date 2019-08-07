@@ -6514,6 +6514,7 @@ video {
   --card-background-color: #fff;
   --nav-background-color: #fff;
   --text-default-color: black;
+  --text-input-default-color: #000;
 }
 
 .theme-dark {
@@ -6523,6 +6524,7 @@ video {
   --card-background-color: #1f2027;
   --nav-background-color: #1f2027;
   --text-default-color: #fff;
+  --text-input-default-color: #000;
 }
 
 .button {
@@ -6537,13 +6539,20 @@ video {
   font-size: 0.875rem;
 }
 
+.button.is-outlined {
+  background-color: var(--card-background-color);
+  border-width: 1px;
+  border-color: #805ad5;
+  color: #805ad5;
+}
+
 .input {
+  color: var(--text-input-default-color);
   background-color: var(--input-background-color);
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
   border-width: 2px;
-  border-color: #edf2f7;
   border-radius: 0.25rem;
   width: 100%;
   padding-top: 0.5rem;
@@ -6587,6 +6596,10 @@ body {
 
 .border-accent {
   border-color: #805ad5;
+}
+
+.text-accent {
+  color: #805ad5;
 }
 
 @media (min-width: 640px) {
