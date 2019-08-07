@@ -8,6 +8,7 @@
     @can('manage', $project)
         <footer>
             <form action="{{ $project->path() }}" method="POST" class="text-right">
+                @csrf
                 @method("DELETE")
                 <button type="submit" class="text-xs ">Delete</button>
             </form>
