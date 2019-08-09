@@ -6,10 +6,10 @@
                 <div class="flex-1 px-4">
                     <div class="mb-4">
                         <label for="title" class="text-sm block">Title</label>
-                        <input type="text" class="input" :class="errors.title ? 'border-red-500' : ''" id="title" v-model="form.title">
+                        <input type="text" class="input" :class="form.errors.title ? 'border-red-500' : ''" id="title" v-model="form.title">
                         
                        
-                        <p class="text-red-500 text-xs italic" v-if="errors.title" v-text="errors.title[0]"></p>
+                        <p class="text-red-500 text-xs italic" v-if="form.errors.title" v-text="form.errors.title[0]"></p>
                     </div>
 
                     <div class="mb-4">
@@ -20,9 +20,9 @@
                         id="description" 
                         rows="7" 
                         v-model="form.description"
-                        :class="errors.description ? 'border-red-500' : ''">
+                        :class="form.errors.description ? 'border-red-500' : ''">
                         </textarea>
-                        <p class="text-red-500 text-xs italic" v-if="errors.description" v-text="errors.description[0]"></p>
+                        <p class="text-red-500 text-xs italic" v-if="form.errors.description" v-text="form.errors.description[0]"></p>
                     </div>
                 </div>
                 <div class="flex-1 px-4">
@@ -58,17 +58,18 @@
 </template>
 
 <script>
+    import PMAForm from './PMAForm';
+
     export default {
         data(){
             return{
-                form: {
+                form: new PMAForm({
                     title: '',
                     description: '',
-                    tasks: [
-                        {body : ''},
+                    tasks : [
+                        {body:''}
                     ]
-                },
-                errors: []
+                })
             }
         },
         methods:{
@@ -76,13 +77,8 @@
                 this.form.tasks.push({body:''});
             },
             submit(){
-                axios.post('/projects', this.form)
-                .then(response => {
-                    location = response.data.message;
-                })
-                .catch(error => {
-                    this.errors = error.response.data.errors;
-                });
+                this.form.submit('/projects')
+                    .then(response => location = response.data.message);
             }
         }
     }

@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
 use App\Traits\RecordsActivity;
+use Illuminate\Database\Eloquent\Model;
 
 class Project extends Model
 {
@@ -43,6 +44,10 @@ class Project extends Model
 
     public function addTasks($tasks)
     {
+        $tasks = Arr::where($tasks, function($task){
+            return $task['body'] ? true : false;
+        });
+
         return $this->tasks()->createMany($tasks);
     }
 

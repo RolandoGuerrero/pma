@@ -61,6 +61,24 @@ class ManageProjectsTest extends TestCase
     }
 
     /** @test */
+    public function include_only_task_with_body()
+    {
+        $this->authenticate();
+
+        $attributes = factory(Project::class)->raw();
+
+        $attributes['tasks'] = [
+            ['body' => 'Task 1'],
+            ['body' => ''],
+            ['body' => 'Task 2']
+        ];
+
+        $this->post('/projects', $attributes);
+
+        $this->assertCount(2, Project::first()->tasks);
+    }
+
+    /** @test */
     public function a_user_can_update_a_project()
     {
         $this->withoutExceptionHandling();

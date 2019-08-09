@@ -1763,6 +1763,7 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _PMAForm__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PMAForm */ "./resources/js/components/PMAForm.js");
 //
 //
 //
@@ -1822,17 +1823,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      form: {
+      form: new _PMAForm__WEBPACK_IMPORTED_MODULE_0__["default"]({
         title: '',
         description: '',
         tasks: [{
           body: ''
         }]
-      },
-      errors: []
+      })
     };
   },
   methods: {
@@ -1842,12 +1843,8 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     submit: function submit() {
-      var _this = this;
-
-      axios.post('/projects', this.form).then(function (response) {
-        location = response.data.message;
-      })["catch"](function (error) {
-        _this.errors = error.response.data.errors;
+      this.form.submit('/projects').then(function (response) {
+        return location = response.data.message;
       });
     }
   }
@@ -37253,7 +37250,7 @@ var render = function() {
                     }
                   ],
                   staticClass: "input",
-                  class: _vm.errors.title ? "border-red-500" : "",
+                  class: _vm.form.errors.title ? "border-red-500" : "",
                   attrs: { type: "text", id: "title" },
                   domProps: { value: _vm.form.title },
                   on: {
@@ -37266,10 +37263,12 @@ var render = function() {
                   }
                 }),
                 _vm._v(" "),
-                _vm.errors.title
+                _vm.form.errors.title
                   ? _c("p", {
                       staticClass: "text-red-500 text-xs italic",
-                      domProps: { textContent: _vm._s(_vm.errors.title[0]) }
+                      domProps: {
+                        textContent: _vm._s(_vm.form.errors.title[0])
+                      }
                     })
                   : _vm._e()
               ]),
@@ -37294,7 +37293,7 @@ var render = function() {
                     }
                   ],
                   staticClass: "input",
-                  class: _vm.errors.description ? "border-red-500" : "",
+                  class: _vm.form.errors.description ? "border-red-500" : "",
                   attrs: { type: "text", id: "description", rows: "7" },
                   domProps: { value: _vm.form.description },
                   on: {
@@ -37307,11 +37306,11 @@ var render = function() {
                   }
                 }),
                 _vm._v(" "),
-                _vm.errors.description
+                _vm.form.errors.description
                   ? _c("p", {
                       staticClass: "text-red-500 text-xs italic",
                       domProps: {
-                        textContent: _vm._s(_vm.errors.description[0])
+                        textContent: _vm._s(_vm.form.errors.description[0])
                       }
                     })
                   : _vm._e()
@@ -49789,6 +49788,67 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_NewProjectModal_vue_vue_type_template_id_d50c518e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/components/PMAForm.js":
+/*!********************************************!*\
+  !*** ./resources/js/components/PMAForm.js ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var PMAForm =
+/*#__PURE__*/
+function () {
+  function PMAForm(data) {
+    _classCallCheck(this, PMAForm);
+
+    this.originalData = JSON.parse(JSON.stringify(data));
+    Object.assign(this, data);
+    this.errors = {};
+  }
+
+  _createClass(PMAForm, [{
+    key: "data",
+    value: function data() {
+      var _this = this;
+
+      return Object.keys(this.originalData).reduce(function (data, attribute) {
+        data[attribute] = _this[attribute];
+        return data;
+      }, {});
+    }
+  }, {
+    key: "submit",
+    value: function submit(endpoint) {
+      return axios.post(endpoint, this.data())["catch"](this.onFail.bind(this));
+    }
+  }, {
+    key: "onFail",
+    value: function onFail(error) {
+      this.errors = error.response.data.errors;
+      throw error;
+    }
+  }, {
+    key: "reset",
+    value: function reset() {
+      Object.assign(this, this.originalData);
+    }
+  }]);
+
+  return PMAForm;
+}();
+
+/* harmony default export */ __webpack_exports__["default"] = (PMAForm);
 
 /***/ }),
 
