@@ -6590,6 +6590,19 @@ video {
   }
 }
 
+.dropdown-menu-link {
+  display: block;
+  color: var(--text-default-color);
+  padding-left: 1rem;
+  padding-right: 1rem;
+  font-size: 0.875rem;
+  line-height: 2;
+}
+
+.dropdown-menu-link:hover {
+  background: rgba(0, 0, 0, 0.09);
+}
+
 body {
   color: var(--text-default-color);
 }

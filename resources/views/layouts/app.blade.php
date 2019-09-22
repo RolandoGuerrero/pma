@@ -40,15 +40,22 @@
                                 @endif
                             @else
                                 <theme-switcher></theme-switcher>
-                                <a id="navbarDropdown" class="flex items-center text-default text-sm" 
-                                href="#" role="button" 
-                                data-toggle="dropdown" 
-                                aria-haspopup="true" 
-                                aria-expanded="false" 
-                                v-pre>
-                                    <img width="35" src="{{gravatar_url(Auth::user()->email)}}" class="rounded-full mr-3">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
+
+                                <drop-down align="right" width="100px">
+                                    <template slot="trigger" >
+                                        <button id="navbarDropdown" class="flex items-center text-default text-sm focus:outline-none" >
+                                            <img width="35" src="{{gravatar_url(Auth::user()->email)}}" class="rounded-full mr-3">
+                                            {{ Auth::user()->name }} <span class="caret"></span>
+                                        </button>
+                                    </template>
+
+                                    <form id="logout-form" action="/logout" method="post">
+                                        @csrf
+
+                                        <button type="submit" class="dropdown-menu-link w-full text-left" >Logout</button>
+                                    </form>
+                                </drop-down>
+                                
                             @endguest
                         </div>
                     </div>
