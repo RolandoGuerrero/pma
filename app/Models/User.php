@@ -37,11 +37,21 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+	 * Get all projects owner by the user.
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 */
     public function projects()
     {
         return $this->hasMany(Project::class, 'owner_id')->latest('updated_at');
     }
 
+     /**
+     * Get all projects that the user has access to.
+     * 
+     * @return mixed
+     */
     public function availableProjects()
     {
         return Project::where('owner_id', $this->id)
